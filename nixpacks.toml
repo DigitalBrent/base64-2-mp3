@@ -1,13 +1,10 @@
-# nixpacks.toml  –   Download & wire a static FFmpeg
+# nixpacks.toml  ─ ship a static, glibc-independent FFmpeg
 [phases.setup]
-# no nix or apt packages – keep the base image small
 cmds = [
-  # Download latest static ffmpeg build (<10 MB, glibc-independent)
+  # 1) download   2) untar   3) symlink into PATH
   "curl -L -o /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz",
-  "mkdir -p /usr/local/ffmpeg",
-  "tar -xJf /tmp/ffmpeg.tar.xz -C /usr/local/ffmpeg --strip-components=1",
-  # Symlink so `subprocess.run(['ffmpeg', …])` just works
-  "ln -s /usr/local/ffmpeg/ffmpeg /usr/local/bin/ffmpeg"
+  "mkdir -p /opt/ffmpeg && tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1",
+  "ln -sf /opt/ffmpeg/ffmpeg /usr/local/bin/ffmpeg"
 ]
 
 [start]
