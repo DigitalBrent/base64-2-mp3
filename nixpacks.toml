@@ -1,1 +1,5 @@
-toml\n[phases.setup]\naptPkgs = [\"ffmpeg\"]\n\n[start]\ncmd = \"uvicorn app:app --host 0.0.0.0 --port $PORT\"\n
+[phases.setup]
+aptPkgs = ["ffmpeg"]
+
+[start]
+cmd = "uvicorn app:app --host 0.0.0.0 --port $PORT"
